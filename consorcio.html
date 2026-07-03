@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filosofia dos Dados | Cons&oacute;rcio</title>
+  <style>
+    :root {
+      --bg:#040f24; --panel:#071a35; --line:#143457; --muted:#99acc9;
+      --white:#edf4ff; --blue:#249eff; --cyan:#21c4ee; --orange:#ff8d19;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; min-height:100vh; color:var(--white); background:var(--bg);
+      font-family:Inter, "Segoe UI", Arial, sans-serif; letter-spacing:0;
+    }
+    .app {
+      min-height:100vh; display:grid; grid-template-columns:218px minmax(0, 1fr);
+      background:radial-gradient(circle at 91% 4%, rgba(36,158,255,.1), transparent 28rem), #050f22;
+    }
+    .sidebar {
+      min-height:100vh; padding:28px 18px 18px; border-right:1px solid #102a48;
+      display:flex; flex-direction:column; gap:34px; background:linear-gradient(180deg,#061224,#06162e);
+    }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:750; line-height:1.12; font-size:15px; }
+    .brand-symbol { position:relative; width:48px; height:44px; overflow:hidden; }
+    .brand-stripe { position:absolute; right:2px; width:45px; border-radius:30px 2px 30px 2px; transform:skewX(-28deg) rotate(-18deg); }
+    .brand-stripe.one { top:5px; height:10px; background:linear-gradient(90deg,#ffc434,#ff8414); }
+    .brand-stripe.two { top:16px; width:43px; height:10px; background:linear-gradient(90deg,#25c6f0,#1488dd); }
+    .brand-stripe.three { top:27px; width:38px; height:9px; background:linear-gradient(90deg,#2872d0,#123a92); }
+    nav { display:grid; gap:7px; }
+    .nav-item {
+      min-height:42px; padding:0 12px; border-radius:8px; display:flex; align-items:center; gap:13px;
+      font-size:14px; color:#bdc9de; text-decoration:none;
+    }
+    .nav-item:hover { color:#e2eefc; background:rgba(9,37,75,.45); }
+    .nav-item.active { color:#64bdff; background:#062651; }
+    .nav-icon { width:18px; text-align:center; font-size:16px; }
+    .nav-section { color:#6d82a2; padding:13px 12px 3px; font-size:11px; text-transform:uppercase; font-weight:700; }
+    .help {
+      margin-top:auto; padding:16px 13px; border:1px solid var(--line); border-radius:8px;
+      color:#b8c9e1; font-size:12px; line-height:1.55; background:#081e3d;
+    }
+    .main { min-width:0; padding:26px 28px 22px; }
+    .panel {
+      max-width:980px; min-height:420px; display:grid; align-content:center; gap:16px;
+      margin:0 auto; padding:34px 38px; border:1px solid var(--line); border-radius:8px;
+      background:linear-gradient(180deg, rgba(7,25,51,.98), rgba(6,22,44,.98));
+    }
+    h1 { margin:0; font-size:32px; line-height:1.15; }
+    p { margin:0; max-width:720px; color:#cfdbec; font-size:15px; line-height:1.72; }
+    .eyebrow { color:var(--cyan); font-size:11px; text-transform:uppercase; font-weight:750; letter-spacing:.08em; }
+    @media (max-width:880px) {
+      .app { grid-template-columns:1fr; }
+      .sidebar { display:none; }
+      .main { padding:18px; }
+      .panel { padding:28px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-symbol" aria-hidden="true"><span class="brand-stripe one"></span><span class="brand-stripe two"></span><span class="brand-stripe three"></span></span>
+        <span>FILOSOFIA<br>DOS DADOS</span>
+      </div>
+      <nav>
+        <a class="nav-item" href="evolucao_acoes.html"><span class="nav-icon">&#8599;</span>A&ccedil;&otilde;es</a>
+        <a class="nav-item" href="painel_acoes_yield_cost.html"><span class="nav-icon">&#8644;</span>Comparar a&ccedil;&otilde;es</a>
+        <div class="nav-item">Carteira</div>
+        <a class="nav-item" href="proventos.html"><span class="nav-icon">$</span>Proventos</a>
+        <a class="nav-item" href="funil_acoes.html"><span class="nav-icon">&#9661;</span>Funil de a&ccedil;&otilde;es</a>
+        <a class="nav-item" href="tabela_dados.html"><span class="nav-icon">&#9638;</span>Tabela de dados</a>
+        <div class="nav-item">Favoritos</div>
+        <div class="nav-section">Produtos</div>
+        <a class="nav-item active" href="consorcio.html"><span class="nav-icon">&#9674;</span>Cons&oacute;rcio</a>
+        <div class="nav-section">Relat&oacute;rios</div>
+        <a class="nav-item" href="relatorio_yield_12m.html"><span class="nav-icon">&#9638;</span>Yield 12M</a>
+      </nav>
+      <div class="help">Produto reservado para a pr&oacute;xima etapa.</div>
+    </aside>
+    <main class="main">
+      <section class="panel">
+        <div class="eyebrow">Produtos</div>
+        <h1>Cons&oacute;rcio</h1>
+        <p>Espa&ccedil;o criado para receber os controles, simula&ccedil;&otilde;es e an&aacute;lises do produto. O conte&uacute;do ser&aacute; definido na pr&oacute;xima etapa.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
