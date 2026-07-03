@@ -3,90 +3,403 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Filosofia dos Dados | Cons&oacute;rcio</title>
+  <title>Cavalaria Contemplados | Cons&oacute;rcios</title>
   <style>
     :root {
-      --bg:#040f24; --panel:#071a35; --line:#143457; --muted:#99acc9;
-      --white:#edf4ff; --blue:#249eff; --cyan:#21c4ee; --orange:#ff8d19;
+      --ink:#07101c;
+      --navy:#050b14;
+      --navy-2:#091827;
+      --cream:#f5eee6;
+      --paper:#fff8f1;
+      --red:#b30712;
+      --red-2:#e1212c;
+      --gold:#c99a52;
+      --line:#ead9c9;
+      --muted:#6c5f56;
+      --white:#fffaf4;
     }
     * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
     body {
-      margin:0; min-height:100vh; color:var(--white); background:var(--bg);
+      margin:0; background:var(--cream); color:var(--ink);
       font-family:Inter, "Segoe UI", Arial, sans-serif; letter-spacing:0;
     }
-    .app {
-      min-height:100vh; display:grid; grid-template-columns:218px minmax(0, 1fr);
-      background:radial-gradient(circle at 91% 4%, rgba(36,158,255,.1), transparent 28rem), #050f22;
+    a { color:inherit; text-decoration:none; }
+    button, input, select { font:inherit; }
+    .topbar {
+      position:sticky; top:0; z-index:20; height:76px; padding:0 26px;
+      display:flex; align-items:center; justify-content:space-between; gap:26px;
+      background:rgba(4,9,16,.96); color:var(--white); border-bottom:1px solid rgba(255,255,255,.08);
     }
-    .sidebar {
-      min-height:100vh; padding:28px 18px 18px; border-right:1px solid #102a48;
-      display:flex; flex-direction:column; gap:34px; background:linear-gradient(180deg,#061224,#06162e);
+    .brand { display:flex; align-items:center; gap:14px; min-width:max-content; }
+    .crest {
+      width:62px; height:62px; border-radius:16px 16px 22px 22px; position:relative;
+      background:linear-gradient(145deg,#0f2c42,#07101a 55%,#080b10);
+      border:2px solid #47728c; box-shadow:inset 0 0 0 3px rgba(255,255,255,.08), 0 8px 22px rgba(0,0,0,.34);
     }
-    .brand { display:flex; align-items:center; gap:11px; font-weight:750; line-height:1.12; font-size:15px; }
-    .brand-symbol { position:relative; width:48px; height:44px; overflow:hidden; }
-    .brand-stripe { position:absolute; right:2px; width:45px; border-radius:30px 2px 30px 2px; transform:skewX(-28deg) rotate(-18deg); }
-    .brand-stripe.one { top:5px; height:10px; background:linear-gradient(90deg,#ffc434,#ff8414); }
-    .brand-stripe.two { top:16px; width:43px; height:10px; background:linear-gradient(90deg,#25c6f0,#1488dd); }
-    .brand-stripe.three { top:27px; width:38px; height:9px; background:linear-gradient(90deg,#2872d0,#123a92); }
-    nav { display:grid; gap:7px; }
-    .nav-item {
-      min-height:42px; padding:0 12px; border-radius:8px; display:flex; align-items:center; gap:13px;
-      font-size:14px; color:#bdc9de; text-decoration:none;
+    .crest::before {
+      content:""; position:absolute; left:13px; right:13px; top:12px; height:20px;
+      border-radius:18px 18px 8px 8px; background:linear-gradient(90deg,#81121b,#f04444,#81121b);
+      box-shadow:0 12px 0 -5px #020811, 0 16px 0 -7px #d5a15c;
     }
-    .nav-item:hover { color:#e2eefc; background:rgba(9,37,75,.45); }
-    .nav-item.active { color:#64bdff; background:#062651; }
-    .nav-icon { width:18px; text-align:center; font-size:16px; }
-    .nav-section { color:#6d82a2; padding:13px 12px 3px; font-size:11px; text-transform:uppercase; font-weight:700; }
-    .help {
-      margin-top:auto; padding:16px 13px; border:1px solid var(--line); border-radius:8px;
-      color:#b8c9e1; font-size:12px; line-height:1.55; background:#081e3d;
+    .crest::after {
+      content:""; position:absolute; left:25px; top:7px; width:12px; height:27px;
+      border-radius:8px; background:linear-gradient(#d9e8f2,#315d78);
+      clip-path:polygon(50% 0,100% 18%,80% 100%,50% 86%,20% 100%,0 18%);
     }
-    .main { min-width:0; padding:26px 28px 22px; }
-    .panel {
-      max-width:980px; min-height:420px; display:grid; align-content:center; gap:16px;
-      margin:0 auto; padding:34px 38px; border:1px solid var(--line); border-radius:8px;
-      background:linear-gradient(180deg, rgba(7,25,51,.98), rgba(6,22,44,.98));
+    .brand-title { display:grid; line-height:.95; }
+    .brand-title strong { font-size:25px; letter-spacing:.04em; }
+    .brand-title span { color:var(--red-2); font-weight:800; letter-spacing:.22em; font-size:15px; }
+    .menu { display:flex; align-items:center; justify-content:center; gap:26px; flex:1; font-size:12px; font-weight:800; text-transform:uppercase; }
+    .menu a { opacity:.92; padding:28px 0 24px; border-bottom:2px solid transparent; }
+    .menu a.active, .menu a:hover { border-color:var(--red-2); color:#fff; }
+    .phone { display:flex; align-items:center; gap:9px; color:#f6f0e6; font-weight:850; min-width:max-content; }
+    .phone span { color:#36d970; font-size:24px; }
+
+    .hero {
+      min-height:430px; color:var(--white); position:relative; overflow:hidden;
+      background:
+        radial-gradient(circle at 82% 45%, rgba(219,20,33,.45), transparent 20rem),
+        linear-gradient(90deg, rgba(4,9,16,.98) 0%, rgba(6,13,22,.93) 40%, rgba(9,15,23,.72) 100%),
+        #050910;
     }
-    h1 { margin:0; font-size:32px; line-height:1.15; }
-    p { margin:0; max-width:720px; color:#cfdbec; font-size:15px; line-height:1.72; }
-    .eyebrow { color:var(--cyan); font-size:11px; text-transform:uppercase; font-weight:750; letter-spacing:.08em; }
-    @media (max-width:880px) {
-      .app { grid-template-columns:1fr; }
-      .sidebar { display:none; }
-      .main { padding:18px; }
-      .panel { padding:28px 22px; }
+    .hero::before {
+      content:""; position:absolute; inset:0;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 46px, rgba(255,255,255,.08) 47px 48px),
+        linear-gradient(0deg, rgba(227,34,47,.34), transparent 32%),
+        linear-gradient(180deg, transparent 0 58%, rgba(0,0,0,.65));
+      mask-image:linear-gradient(180deg, transparent 0, #000 32%, #000 100%);
+      opacity:.35;
+    }
+    .city {
+      position:absolute; inset:auto 0 58px 32%; height:190px; opacity:.45;
+      background:
+        linear-gradient(#162232,#162232) 4% 45% / 26px 55% no-repeat,
+        linear-gradient(#162232,#162232) 12% 28% / 38px 72% no-repeat,
+        linear-gradient(#162232,#162232) 22% 12% / 24px 88% no-repeat,
+        linear-gradient(#162232,#162232) 33% 32% / 44px 68% no-repeat,
+        linear-gradient(#162232,#162232) 49% 20% / 34px 80% no-repeat,
+        linear-gradient(#162232,#162232) 64% 40% / 60px 60% no-repeat,
+        linear-gradient(#162232,#162232) 80% 24% / 38px 76% no-repeat;
+    }
+    .hero-wrap {
+      position:relative; z-index:1; max-width:1220px; margin:0 auto; padding:64px 30px 28px;
+      display:grid; grid-template-columns:minmax(340px, 520px) minmax(420px, 1fr); gap:28px; align-items:end;
+    }
+    .hero h1 { margin:0; font-size:clamp(44px, 7vw, 86px); line-height:.92; text-transform:uppercase; letter-spacing:.01em; }
+    .hero h1 span { color:var(--red-2); display:block; }
+    .hero p { max-width:420px; margin:22px 0 28px; font-size:19px; line-height:1.45; font-weight:750; color:#f4eee6; }
+    .badges { display:grid; grid-template-columns:repeat(4, minmax(80px, 1fr)); gap:12px; max-width:540px; }
+    .badge { display:flex; gap:8px; align-items:center; font-size:10px; font-weight:850; text-transform:uppercase; color:#f2dfc4; }
+    .badge i {
+      width:34px; height:34px; border:1px solid var(--gold); border-radius:10px;
+      display:grid; place-items:center; color:var(--gold); font-style:normal; font-size:18px;
+    }
+    .vehicle-stage { min-height:292px; position:relative; }
+    .truck, .car {
+      position:absolute; filter:drop-shadow(0 24px 24px rgba(0,0,0,.55));
+    }
+    .truck {
+      right:8px; bottom:40px; width:min(38vw, 360px); height:150px;
+      background:linear-gradient(180deg,#e9edf0,#949ca3); border-radius:18px 24px 14px 12px;
+      clip-path:polygon(0 26%, 58% 26%, 64% 0, 100% 0, 100% 78%, 90% 78%, 86% 100%, 76% 100%, 72% 78%, 22% 78%, 18% 100%, 8% 100%, 4% 78%, 0 78%);
+    }
+    .truck::before {
+      content:""; position:absolute; right:42px; top:22px; width:84px; height:58px;
+      border-radius:8px; background:linear-gradient(135deg,#0c1723,#22384a);
+    }
+    .truck::after, .car::after {
+      content:""; position:absolute; bottom:-12px; left:18%; width:52px; height:52px;
+      border-radius:50%; background:radial-gradient(circle,#d7e1e8 0 18%,#101620 19% 55%,#020409 56%);
+      box-shadow:190px 0 0 #05080c;
+    }
+    .car {
+      left:20px; bottom:10px; width:min(44vw, 480px); height:142px;
+      background:linear-gradient(160deg,#1b3143,#07111d 52%,#02060b);
+      border:2px solid rgba(135,179,207,.35);
+      border-radius:90px 120px 38px 42px;
+      clip-path:polygon(4% 62%, 16% 34%, 34% 20%, 65% 20%, 84% 42%, 98% 58%, 95% 78%, 6% 78%);
+    }
+    .car::before {
+      content:""; position:absolute; left:34%; top:18px; width:34%; height:42px;
+      background:linear-gradient(140deg,#172d41,#4c7592); border-radius:22px 34px 8px 8px;
+      transform:skewX(-18deg);
+    }
+    .brand-strip {
+      grid-column:1 / -1; margin-top:12px; justify-self:end; width:min(590px, 100%);
+      display:flex; align-items:center; justify-content:space-around; gap:16px;
+      padding:14px 18px; border-radius:9px; background:#fff8ef; color:#152438; font-weight:900;
+      box-shadow:0 12px 24px rgba(0,0,0,.25);
+    }
+    .brand-strip span { display:inline-flex; align-items:center; gap:7px; }
+    .brand-mark { width:25px; height:18px; border-radius:5px; background:linear-gradient(135deg,#0e78dd 0 45%,#ef2635 46%); display:inline-block; }
+
+    .content { max-width:1220px; margin:0 auto; padding:18px 30px 0; }
+    .forms { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:-4px; }
+    .box { border-radius:8px; padding:20px; box-shadow:0 10px 28px rgba(33,18,5,.08); }
+    .box.dark { background:#06111e; color:var(--white); }
+    .box.sell { background:linear-gradient(180deg,#ab0611,#8c050d); color:var(--white); }
+    .box h2 { margin:0 0 16px; display:flex; align-items:center; gap:12px; font-size:22px; text-transform:uppercase; }
+    .box h2 i { width:28px; height:28px; display:grid; place-items:center; border:1px solid currentColor; border-radius:8px; font-style:normal; }
+    .grid-fields { display:grid; grid-template-columns:1fr 1fr; gap:12px 18px; }
+    .field.full { grid-column:1 / -1; }
+    label { display:grid; gap:6px; font-size:12px; font-weight:850; }
+    select, input {
+      width:100%; min-height:40px; border:0; border-radius:6px; background:#fffaf4;
+      color:#1a2230; padding:0 13px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
+    }
+    .money { display:grid; grid-template-columns:50px 1fr; }
+    .money span {
+      min-height:40px; display:grid; place-items:center; background:#fffaf4; color:#171c25; font-weight:900;
+      border-radius:6px 0 0 6px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
+    }
+    .money input { border-radius:0 6px 6px 0; }
+    .cta {
+      margin-top:16px; width:100%; min-height:48px; border:0; border-radius:6px;
+      display:flex; align-items:center; justify-content:center; gap:12px; cursor:pointer;
+      background:var(--red); color:#fff; font-weight:900; text-transform:uppercase;
+    }
+    .sell .cta { background:#06111e; }
+
+    .section-head { display:flex; align-items:center; justify-content:space-between; gap:18px; margin:18px 0 10px; }
+    .section-head h2 { margin:0; font-size:20px; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
+    .section-head a { font-size:12px; font-weight:900; text-transform:uppercase; }
+    .cards-wrap { position:relative; }
+    .cards { display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:12px; }
+    .card {
+      min-height:198px; padding:15px 14px 12px; border:1px solid var(--line); border-radius:8px;
+      background:#fffaf4; display:grid; align-content:start; gap:5px; box-shadow:0 7px 18px rgba(45,24,8,.05);
+    }
+    .card-type { display:flex; align-items:center; gap:7px; font-size:11px; font-weight:900; text-transform:uppercase; }
+    .card small { font-size:10px; color:#384355; font-weight:850; text-transform:uppercase; }
+    .price { font-size:25px; font-weight:950; line-height:1; }
+    .meta { font-size:12px; font-weight:750; line-height:1.3; }
+    .admin { margin-top:3px; min-height:29px; display:flex; align-items:center; gap:6px; font-weight:950; color:#164a7b; }
+    .admin::before { content:""; width:19px; height:14px; border-radius:4px; background:linear-gradient(135deg,#0c7be0 0 47%,#e72734 48%); }
+    .want {
+      margin-top:auto; min-height:31px; border:0; border-radius:5px; background:var(--red); color:#fff;
+      display:flex; align-items:center; justify-content:center; gap:6px; font-weight:900; font-size:12px; text-transform:uppercase;
+    }
+    .side-arrow {
+      position:absolute; top:45%; width:34px; height:34px; border:0; border-radius:50%;
+      background:#06111e; color:#fff; font-size:22px; display:grid; place-items:center;
+    }
+    .side-arrow.left { left:-20px; }
+    .side-arrow.right { right:-20px; }
+    .dots { display:flex; gap:9px; justify-content:center; margin:14px 0 4px; }
+    .dot { width:9px; height:9px; border-radius:50%; background:#dfd0c1; }
+    .dot.active { background:var(--red); }
+
+    .steps { padding:18px 0 26px; }
+    .steps h2 { text-align:center; margin:0 0 12px; text-transform:uppercase; }
+    .step-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:14px; }
+    .step {
+      display:grid; grid-template-columns:68px 1fr; gap:13px; align-items:center;
+      padding:12px; border-top:1px solid var(--line);
+    }
+    .step i {
+      width:64px; height:64px; border-radius:50%; display:grid; place-items:center; background:#06111e; color:#f1d5a8;
+      border:2px solid #d0a469; font-style:normal; font-size:28px; position:relative;
+    }
+    .step i::after {
+      content:attr(data-step); position:absolute; top:-6px; right:-6px; width:24px; height:24px; border-radius:50%;
+      display:grid; place-items:center; background:var(--red); color:#fff; font-size:12px; font-weight:950;
+    }
+    .step strong { display:block; text-transform:uppercase; font-size:13px; }
+    .step span { display:block; color:#574b43; font-size:12px; line-height:1.35; margin-top:4px; }
+
+    .footer {
+      background:#06111e; color:#fffaf4; padding:24px 30px;
+    }
+    .footer-inner {
+      max-width:1220px; margin:0 auto; display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:24px;
+    }
+    .footer .brand-title strong { font-size:21px; }
+    .footer p, .footer li { color:#e0d6cc; font-size:13px; line-height:1.5; margin:8px 0 0; }
+    .footer h3 { margin:0 0 8px; text-transform:uppercase; font-size:14px; }
+    .footer ul { list-style:none; padding:0; margin:0; }
+
+    @media (max-width:980px) {
+      .topbar { height:auto; min-height:72px; flex-wrap:wrap; padding:12px 18px; }
+      .menu { order:3; width:100%; justify-content:flex-start; overflow:auto; gap:18px; }
+      .menu a { padding:8px 0; }
+      .hero-wrap { grid-template-columns:1fr; padding:40px 20px 22px; }
+      .vehicle-stage { min-height:210px; }
+      .forms, .step-grid, .footer-inner { grid-template-columns:1fr; }
+      .cards { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .side-arrow { display:none; }
+    }
+    @media (max-width:620px) {
+      .brand-title strong { font-size:19px; }
+      .brand-title span { font-size:12px; }
+      .phone { width:100%; }
+      .hero h1 { font-size:42px; }
+      .badges { grid-template-columns:repeat(2, 1fr); }
+      .brand-strip { flex-wrap:wrap; justify-content:flex-start; }
+      .content { padding:14px 14px 0; }
+      .grid-fields, .cards { grid-template-columns:1fr; }
+      .car { width:92vw; left:0; }
+      .truck { width:72vw; opacity:.78; }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <span class="brand-symbol" aria-hidden="true"><span class="brand-stripe one"></span><span class="brand-stripe two"></span><span class="brand-stripe three"></span></span>
-        <span>FILOSOFIA<br>DOS DADOS</span>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Cavalaria Contemplados">
+      <span class="crest" aria-hidden="true"></span>
+      <span class="brand-title"><strong>CAVALARIA</strong><span>CONTEMPLADOS</span></span>
+    </a>
+    <nav class="menu" aria-label="Menu principal">
+      <a class="active" href="#cartas">Cartas dispon&iacute;veis</a>
+      <a href="#automoveis">Autom&oacute;veis</a>
+      <a href="#imoveis">Im&oacute;veis</a>
+      <a href="#caminhoes">Caminh&otilde;es</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#quem-somos">Quem somos</a>
+    </nav>
+    <a class="phone" href="https://wa.me/5512997601067"><span>◔</span>12 99760-1067</a>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="city" aria-hidden="true"></div>
+      <div class="hero-wrap">
+        <div>
+          <h1>Cons&oacute;rcios <span>contemplados</span></h1>
+          <p>Realize seus sonhos com seguran&ccedil;a e economia. Autom&oacute;veis, Im&oacute;veis e Caminh&otilde;es.</p>
+          <div class="badges">
+            <div class="badge"><i>✓</i>Processo 100% seguro</div>
+            <div class="badge"><i>☎</i>Atendimento especializado</div>
+            <div class="badge"><i>✦</i>Diversas administradoras</div>
+            <div class="badge"><i>▣</i>Sem sorteio</div>
+          </div>
+        </div>
+        <div class="vehicle-stage" aria-hidden="true">
+          <span class="truck"></span>
+          <span class="car"></span>
+        </div>
+        <div class="brand-strip" aria-label="Administradoras parceiras">
+          <span><i class="brand-mark"></i>mycon</span>
+          <span><i class="brand-mark"></i>Porto</span>
+          <span><i class="brand-mark"></i>ADEMICON</span>
+          <strong>E MUITO MAIS!</strong>
+        </div>
       </div>
-      <nav>
-        <a class="nav-item" href="evolucao_acoes.html"><span class="nav-icon">&#8599;</span>A&ccedil;&otilde;es</a>
-        <a class="nav-item" href="painel_acoes_yield_cost.html"><span class="nav-icon">&#8644;</span>Comparar a&ccedil;&otilde;es</a>
-        <div class="nav-item">Carteira</div>
-        <a class="nav-item" href="proventos.html"><span class="nav-icon">$</span>Proventos</a>
-        <a class="nav-item" href="funil_acoes.html"><span class="nav-icon">&#9661;</span>Funil de a&ccedil;&otilde;es</a>
-        <a class="nav-item" href="tabela_dados.html"><span class="nav-icon">&#9638;</span>Tabela de dados</a>
-        <div class="nav-item">Favoritos</div>
-        <div class="nav-section">Produtos</div>
-        <a class="nav-item active" href="consorcio.html"><span class="nav-icon">&#9674;</span>Cons&oacute;rcio</a>
-        <div class="nav-section">Relat&oacute;rios</div>
-        <a class="nav-item" href="relatorio_yield_12m.html"><span class="nav-icon">&#9638;</span>Yield 12M</a>
-      </nav>
-      <div class="help">Produto reservado para a pr&oacute;xima etapa.</div>
-    </aside>
-    <main class="main">
-      <section class="panel">
-        <div class="eyebrow">Produtos</div>
-        <h1>Cons&oacute;rcio</h1>
-        <p>Espa&ccedil;o criado para receber os controles, simula&ccedil;&otilde;es e an&aacute;lises do produto. O conte&uacute;do ser&aacute; definido na pr&oacute;xima etapa.</p>
+    </section>
+
+    <div class="content" id="cartas">
+      <section class="forms" aria-label="Busca e venda de cartas">
+        <form class="box dark">
+          <h2><i>⌕</i> Encontre a carta ideal para voc&ecirc;</h2>
+          <div class="grid-fields">
+            <label>Tipo
+              <select><option>Selecione o tipo</option><option>Autom&oacute;vel</option><option>Im&oacute;vel</option><option>Caminh&atilde;o</option></select>
+            </label>
+            <label>Cr&eacute;dito m&iacute;nimo
+              <select><option>R$ m&iacute;nimo</option><option>R$ 25.000</option><option>R$ 100.000</option><option>R$ 250.000</option></select>
+            </label>
+            <label>Cr&eacute;dito m&aacute;ximo
+              <select><option>R$ m&aacute;ximo</option><option>R$ 75.000</option><option>R$ 400.000</option><option>R$ 750.000</option></select>
+            </label>
+            <label>Entrada m&aacute;xima
+              <select><option>R$ m&aacute;ximo</option><option>R$ 15.000</option><option>R$ 75.000</option><option>R$ 130.000</option></select>
+            </label>
+            <label>Parcela m&aacute;xima
+              <select><option>R$ m&aacute;ximo</option><option>R$ 800</option><option>R$ 2.500</option><option>R$ 4.500</option></select>
+            </label>
+            <label>Administradora
+              <select><option>Todas</option><option>Mycon</option><option>Porto Seguro</option><option>Ademicon</option></select>
+            </label>
+            <label class="field full">Administradora
+              <input placeholder="Digite o nome da administradora" />
+            </label>
+          </div>
+          <button class="cta" type="button">⌕ Buscar cartas</button>
+        </form>
+
+        <form class="box sell">
+          <h2><i>▦</i> Venda sua carta</h2>
+          <div class="grid-fields">
+            <label class="field full">Valor do cr&eacute;dito
+              <span class="money"><span>R$</span><input placeholder="Ex: 100.000,00" /></span>
+            </label>
+            <label class="field full">Quantas parcelas pagas
+              <input placeholder="Ex: 20 parcelas" />
+            </label>
+            <label class="field full">Valor da parcela
+              <span class="money"><span>R$</span><input placeholder="Ex: 1.500,00" /></span>
+            </label>
+            <label class="field full">Administradora
+              <input placeholder="Digite o nome da administradora" />
+            </label>
+          </div>
+          <button class="cta" type="button">✈ Enviar carta</button>
+        </form>
       </section>
-    </main>
-  </div>
+
+      <section id="automoveis">
+        <div class="section-head">
+          <h2>▰ Cartas de autom&oacute;vel</h2>
+          <a href="#cartas">Ver todas as cartas →</a>
+        </div>
+        <div class="cards-wrap">
+          <button class="side-arrow left" type="button" aria-label="Anterior">‹</button>
+          <div class="cards">
+            <article class="card"><div class="card-type">▰ Autom&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 25.000</div><div class="meta">Entrada<br>R$ 7.990</div><div class="meta">Saldo<br>69x de R$ 418,00</div><div class="admin">mycon</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">▰ Autom&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 35.250</div><div class="meta">Entrada<br>R$ 12.490</div><div class="meta">Saldo<br>50x de R$ 750,18</div><div class="admin">mycon</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">▰ Autom&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 43.625</div><div class="meta">Entrada<br>R$ 14.900</div><div class="meta">Saldo<br>67x de R$ 715,00</div><div class="admin">mycon</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">▰ Autom&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 66.900</div><div class="meta">Entrada<br>R$ 22.900</div><div class="meta">Saldo<br>65x de R$ 1.014,00</div><div class="admin">mycon</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">▰ Autom&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 75.000</div><div class="meta">Entrada<br>R$ 25.900</div><div class="meta">Saldo<br>66x de R$ 1.285,00</div><div class="admin">mycon</div><button class="want">◔ Quero essa carta</button></article>
+          </div>
+          <button class="side-arrow right" type="button" aria-label="Proximo">›</button>
+        </div>
+        <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      </section>
+
+      <section id="imoveis">
+        <div class="section-head">
+          <h2>⌂ Cartas de im&oacute;vel</h2>
+          <a href="#cartas">Ver todas as cartas →</a>
+        </div>
+        <div class="cards-wrap">
+          <button class="side-arrow left" type="button" aria-label="Anterior">‹</button>
+          <div class="cards">
+            <article class="card"><div class="card-type">⌂ Im&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 150.000</div><div class="meta">Entrada<br>R$ 35.000</div><div class="meta">Saldo<br>120x de R$ 1.650,00</div><div class="admin">Porto</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">⌂ Im&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 250.000</div><div class="meta">Entrada<br>R$ 55.000</div><div class="meta">Saldo<br>150x de R$ 2.260,00</div><div class="admin">Ademicon</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">⌂ Im&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 400.000</div><div class="meta">Entrada<br>R$ 75.000</div><div class="meta">Saldo<br>180x de R$ 2.890,00</div><div class="admin">mycon</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">⌂ Im&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 500.000</div><div class="meta">Entrada<br>R$ 95.000</div><div class="meta">Saldo<br>180x de R$ 3.560,00</div><div class="admin">Porto</div><button class="want">◔ Quero essa carta</button></article>
+            <article class="card"><div class="card-type">⌂ Im&oacute;vel</div><small>Cr&eacute;dito</small><div class="price">R$ 750.000</div><div class="meta">Entrada<br>R$ 130.000</div><div class="meta">Saldo<br>200x de R$ 4.350,00</div><div class="admin">mycon</div><button class="want">◔ Quero essa carta</button></article>
+          </div>
+          <button class="side-arrow right" type="button" aria-label="Proximo">›</button>
+        </div>
+      </section>
+
+      <section class="steps" id="como-funciona">
+        <h2>Como funciona</h2>
+        <div class="step-grid">
+          <div class="step"><i data-step="1">▤</i><div><strong>Escolha sua carta</strong><span>Encontre a carta ideal para o seu objetivo.</span></div></div>
+          <div class="step"><i data-step="2">☎</i><div><strong>Fale com especialista</strong><span>Nossa equipe entra em contato para te atender.</span></div></div>
+          <div class="step"><i data-step="3">☷</i><div><strong>An&aacute;lise e documenta&ccedil;&atilde;o</strong><span>Analisamos a documenta&ccedil;&atilde;o com seguran&ccedil;a.</span></div></div>
+          <div class="step"><i data-step="4">↔</i><div><strong>Transfer&ecirc;ncia da carta</strong><span>Tudo aprovado, a carta &eacute; liberada.</span></div></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" id="quem-somos">
+    <div class="footer-inner">
+      <div>
+        <div class="brand">
+          <span class="crest" aria-hidden="true"></span>
+          <span class="brand-title"><strong>CAVALARIA</strong><span>CONTEMPLADOS</span></span>
+        </div>
+        <p>Realize seus sonhos com seguran&ccedil;a e economia. Autom&oacute;veis, Im&oacute;veis e Caminh&otilde;es.</p>
+      </div>
+      <div><h3>Fale conosco</h3><ul><li>◔ 12 99760-1067</li><li>☎ (11) 98051-3020</li></ul></div>
+      <div><h3>Siga-nos</h3><ul><li>◎ /cavalaria.contemplados</li><li>f /cavalariacontemplados</li></ul></div>
+      <div><h3>Seguran&ccedil;a</h3><p>Site 100% seguro. Seus dados protegidos com criptografia SSL.</p></div>
+    </div>
+  </footer>
 </body>
 </html>
