@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cavalaria Contemplados | Im&oacute;veis</title>
+  <style>
+    :root {
+      --ink:#07101c; --navy:#050b14; --cream:#f5eee6; --paper:#fffaf4;
+      --red:#b30712; --red-2:#e1212c; --gold:#c99a52; --line:#ead9c9;
+      --muted:#6c5f56; --green:#19a44a; --white:#fffaf4;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--cream); color:var(--ink); font-family:Inter, "Segoe UI", Arial, sans-serif; letter-spacing:0; }
+    a { color:inherit; text-decoration:none; }
+    button, input, select { font:inherit; }
+    .topbar {
+      position:sticky; top:0; z-index:20; min-height:76px; padding:0 28px;
+      display:flex; align-items:center; justify-content:space-between; gap:26px;
+      background:rgba(4,9,16,.97); color:var(--white); border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .brand { display:flex; align-items:center; gap:14px; min-width:max-content; }
+    .crest {
+      width:62px; height:62px; border-radius:16px 16px 22px 22px; position:relative;
+      background:linear-gradient(145deg,#0f2c42,#07101a 55%,#080b10);
+      border:2px solid #47728c; box-shadow:inset 0 0 0 3px rgba(255,255,255,.08), 0 8px 22px rgba(0,0,0,.34);
+    }
+    .crest::before {
+      content:""; position:absolute; left:13px; right:13px; top:12px; height:20px;
+      border-radius:18px 18px 8px 8px; background:linear-gradient(90deg,#81121b,#f04444,#81121b);
+      box-shadow:0 12px 0 -5px #020811, 0 16px 0 -7px #d5a15c;
+    }
+    .crest::after {
+      content:""; position:absolute; left:25px; top:7px; width:12px; height:27px;
+      border-radius:8px; background:linear-gradient(#d9e8f2,#315d78);
+      clip-path:polygon(50% 0,100% 18%,80% 100%,50% 86%,20% 100%,0 18%);
+    }
+    .brand-title { display:grid; line-height:.95; }
+    .brand-title strong { font-size:25px; letter-spacing:.04em; }
+    .brand-title span { color:var(--red-2); font-weight:800; letter-spacing:.22em; font-size:15px; }
+    .menu { display:flex; align-items:center; justify-content:center; gap:32px; flex:1; font-size:12px; font-weight:850; text-transform:uppercase; }
+    .menu a { opacity:.92; padding:28px 0 24px; border-bottom:2px solid transparent; }
+    .menu a.active, .menu a:hover { border-color:var(--red-2); color:#fff; }
+    .phone { display:flex; align-items:center; gap:9px; color:#f6f0e6; font-weight:850; min-width:max-content; }
+    .phone i { width:24px; height:24px; border:2px solid #26d263; color:#26d263; border-radius:50%; display:grid; place-items:center; font-style:normal; font-size:13px; }
+
+    .hero {
+      color:var(--white); position:relative; overflow:hidden; background:
+        radial-gradient(circle at 76% 20%, rgba(219,20,33,.34), transparent 24rem),
+        linear-gradient(90deg, rgba(4,9,16,.99) 0%, rgba(7,14,24,.94) 47%, rgba(10,16,24,.82) 100%),
+        #050910;
+    }
+    .hero::before {
+      content:""; position:absolute; inset:0; opacity:.34; background:
+        repeating-linear-gradient(90deg, transparent 0 48px, rgba(255,255,255,.08) 49px 50px),
+        linear-gradient(0deg, rgba(227,34,47,.34), transparent 36%),
+        linear-gradient(180deg, transparent 0 56%, rgba(0,0,0,.6));
+    }
+    .city {
+      position:absolute; inset:auto 0 12px 28%; height:200px; opacity:.38;
+      background:
+        linear-gradient(#182437,#182437) 3% 44% / 28px 56% no-repeat,
+        linear-gradient(#182437,#182437) 13% 24% / 42px 76% no-repeat,
+        linear-gradient(#182437,#182437) 24% 10% / 24px 90% no-repeat,
+        linear-gradient(#182437,#182437) 35% 34% / 48px 66% no-repeat,
+        linear-gradient(#182437,#182437) 50% 18% / 36px 82% no-repeat,
+        linear-gradient(#182437,#182437) 68% 42% / 66px 58% no-repeat,
+        linear-gradient(#182437,#182437) 83% 20% / 42px 80% no-repeat;
+    }
+    .hero-inner {
+      position:relative; z-index:1; max-width:1240px; margin:0 auto; padding:30px 28px 24px;
+      display:grid; grid-template-columns:minmax(280px, 470px) 1fr; gap:26px; align-items:center;
+    }
+    .hero h1 { margin:0; font-size:clamp(38px, 5vw, 58px); line-height:.98; text-transform:uppercase; }
+    .hero h1 span { color:var(--red-2); display:block; }
+    .hero p { margin:16px 0 0; max-width:420px; font-size:18px; line-height:1.45; font-weight:720; color:#f3e9dd; }
+    .hero-side { display:grid; gap:18px; justify-items:end; }
+    .badges { display:grid; grid-template-columns:repeat(4, minmax(92px, 1fr)); gap:16px; width:100%; max-width:560px; }
+    .badge { display:flex; align-items:center; gap:9px; font-size:11px; font-weight:850; text-transform:uppercase; color:#f1dfc5; }
+    .badge i { width:36px; height:36px; border:1px solid var(--gold); border-radius:10px; display:grid; place-items:center; color:var(--gold); font-style:normal; font-size:18px; }
+    .brand-strip {
+      width:min(560px, 100%); display:flex; align-items:center; justify-content:space-around; gap:16px;
+      padding:17px 20px; border-radius:10px; background:#fff8ef; color:#172437; font-weight:950;
+      box-shadow:0 14px 28px rgba(0,0,0,.25);
+    }
+    .brand-strip span { display:flex; align-items:center; gap:8px; }
+    .brand-mark { width:25px; height:18px; border-radius:5px; background:linear-gradient(135deg,#0e78dd 0 45%,#ef2635 46%); display:inline-block; }
+
+    .shell { max-width:1240px; margin:0 auto; padding:22px 28px 34px; }
+    .filters, .table-card {
+      background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:22px;
+      box-shadow:0 14px 34px rgba(33,18,5,.08);
+    }
+    .filter-grid { display:grid; grid-template-columns:1.1fr 1fr 1.5fr 1.1fr 1.1fr 1fr 150px; gap:16px; align-items:end; }
+    label { display:grid; gap:8px; font-size:12px; font-weight:850; color:#182232; }
+    select, input {
+      width:100%; min-height:38px; border:0; border-radius:6px; background:#fff; color:#172132; padding:0 13px;
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);
+    }
+    .range { display:grid; grid-template-columns:1fr 24px 1fr; align-items:center; gap:8px; }
+    .range span { text-align:center; color:#76685f; font-size:12px; font-weight:800; }
+    .search {
+      min-height:48px; border:0; border-radius:8px; background:linear-gradient(180deg,#d91522,#aa0710);
+      color:#fff; font-weight:950; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:10px; cursor:pointer;
+    }
+    .quick { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:16px; }
+    .quick strong { font-size:12px; }
+    .chip { min-height:32px; padding:0 14px; border:1px solid #e0d3c7; border-radius:6px; background:#fff; color:#202938; font-size:12px; font-weight:750; display:flex; align-items:center; }
+    .clear { margin-left:auto; color:var(--red); font-weight:900; font-size:13px; text-transform:uppercase; }
+
+    .table-card { margin-top:18px; }
+    .table-head { display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom:16px; }
+    .table-title { display:flex; gap:13px; align-items:center; }
+    .table-title i { width:32px; height:32px; border:2px solid var(--red); border-radius:8px; color:var(--red); display:grid; place-items:center; font-style:normal; font-weight:950; }
+    .table-title h2 { margin:0; font-size:20px; text-transform:uppercase; }
+    .table-title span { display:block; color:#53483f; font-size:12px; margin-top:2px; }
+    .sort { display:flex; align-items:center; gap:10px; font-size:12px; font-weight:850; }
+    .table-scroll { overflow-x:auto; border-radius:8px; border:1px solid #e7d8ca; }
+    table { width:100%; border-collapse:collapse; min-width:1030px; background:#fffaf4; }
+    th { background:#06111e; color:#fff; font-size:12px; line-height:1.2; text-align:left; padding:13px 12px; border-right:1px solid rgba(255,255,255,.12); }
+    td { padding:13px 12px; border-top:1px solid #eee0d3; border-right:1px solid #eee0d3; font-size:13px; vertical-align:middle; }
+    tbody tr:hover { background:#fff2e8; }
+    .type-icon { font-size:20px; text-align:center; }
+    .asset { font-weight:950; text-transform:uppercase; display:grid; gap:4px; }
+    .tag { width:max-content; padding:3px 7px; border-radius:4px; color:#fff; font-size:10px; font-weight:950; text-transform:uppercase; }
+    .tag.gold { background:#f5a623; }
+    .tag.red { background:#d7262f; }
+    .tag.blue { background:#30a3d8; }
+    .tag.green { background:#23a952; }
+    .admin { display:flex; align-items:center; gap:7px; color:#162437; font-weight:950; }
+    .admin::before { content:""; width:22px; height:16px; border-radius:5px; background:linear-gradient(135deg,#0e78dd 0 45%,#ef2635 46%); }
+    .available { color:var(--green); background:#eaf8ee; border:1px solid #cfead7; font-size:11px; font-weight:950; border-radius:5px; padding:5px 8px; }
+    .note { font-weight:950; white-space:nowrap; }
+    .actions { display:flex; gap:8px; align-items:center; }
+    .whats { width:28px; height:28px; border:0; border-radius:6px; background:#18b653; color:#fff; font-weight:950; display:grid; place-items:center; }
+    .details { min-height:28px; padding:0 10px; border:1px solid #e1a0a6; border-radius:5px; background:#fff; color:var(--red); font-weight:950; font-size:11px; text-transform:uppercase; }
+    .legend { display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-top:16px; border:1px solid #eaded3; border-radius:8px; padding:12px; }
+    .legend-item { display:grid; grid-template-columns:48px 1fr; gap:12px; align-items:center; }
+    .legend-item i { width:42px; height:42px; border-radius:50%; display:grid; place-items:center; color:var(--gold); font-style:normal; font-size:25px; }
+    .legend-item strong { text-transform:uppercase; font-size:13px; display:block; }
+    .legend-item span { color:#65584e; font-size:12px; line-height:1.35; }
+
+    .footer { background:#06111e; color:#fffaf4; padding:24px 30px; }
+    .footer-inner { max-width:1220px; margin:0 auto; display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:24px; }
+    .footer .brand-title strong { font-size:21px; }
+    .footer p, .footer li { color:#e0d6cc; font-size:13px; line-height:1.5; margin:8px 0 0; }
+    .footer h3 { margin:0 0 8px; text-transform:uppercase; font-size:14px; }
+    .footer ul { list-style:none; padding:0; margin:0; }
+
+    @media (max-width:1100px) {
+      .topbar { flex-wrap:wrap; padding:12px 18px; }
+      .menu { order:3; width:100%; justify-content:flex-start; overflow:auto; gap:22px; }
+      .menu a { padding:8px 0; }
+      .hero-inner { grid-template-columns:1fr; }
+      .hero-side { justify-items:start; }
+      .filter-grid { grid-template-columns:repeat(3, 1fr); }
+      .legend, .footer-inner { grid-template-columns:repeat(2, 1fr); }
+    }
+    @media (max-width:720px) {
+      .brand-title strong { font-size:19px; }
+      .brand-title span { font-size:12px; }
+      .phone { width:100%; }
+      .hero-inner, .shell { padding-left:16px; padding-right:16px; }
+      .badges, .filter-grid, .legend, .footer-inner { grid-template-columns:1fr; }
+      .brand-strip { flex-wrap:wrap; justify-content:flex-start; }
+      .range { grid-template-columns:1fr; }
+      .range span { display:none; }
+      .table-head { align-items:flex-start; flex-direction:column; }
+      .clear { margin-left:0; width:100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="consorcio.html" aria-label="Cavalaria Contemplados">
+      <span class="crest" aria-hidden="true"></span>
+      <span class="brand-title"><strong>CAVALARIA</strong><span>CONTEMPLADOS</span></span>
+    </a>
+    <nav class="menu" aria-label="Menu principal">
+      <a class="active" href="imoveis.html">Cartas dispon&iacute;veis</a>
+      <a href="automoveis.html">Autom&oacute;veis</a>
+      <a href="consorcio.html#cartas">Venda sua carta</a>
+      <a href="consorcio.html#como-funciona">Como funciona</a>
+      <a href="consorcio.html#quem-somos">Quem somos</a>
+    </nav>
+    <a class="phone" href="https://wa.me/5512997601067"><i>W</i>12 99760-1067</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="city" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div>
+          <h1>Im&oacute;veis <span>contemplados</span></h1>
+          <p>Cartas contempladas para comprar, construir ou investir com economia e seguran&ccedil;a.</p>
+        </div>
+        <div class="hero-side">
+          <div class="badges">
+            <div class="badge"><i>✓</i>Processo 100% seguro</div>
+            <div class="badge"><i>☎</i>Atendimento especializado</div>
+            <div class="badge"><i>◎</i>Diversas administradoras</div>
+            <div class="badge"><i>□</i>Sem sorteio</div>
+          </div>
+          <div class="brand-strip" aria-label="Administradoras parceiras">
+            <span><i class="brand-mark"></i>mycon</span>
+            <span><i class="brand-mark"></i>Porto</span>
+            <span><i class="brand-mark"></i>ADEMICON</span>
+            <strong>E MUITO MAIS!</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="shell">
+      <section class="filters" aria-label="Filtros de imoveis">
+        <div class="filter-grid">
+          <label>Tipo de im&oacute;vel
+            <select><option>Todos</option><option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Constru&ccedil;&atilde;o</option></select>
+          </label>
+          <label>Finalidade
+            <select><option>Todas</option><option>Comprar</option><option>Construir</option><option>Investir</option></select>
+          </label>
+          <label>Cr&eacute;dito (R$)
+            <span class="range"><input value="100.000" /><span>at&eacute;</span><input value="800.000" /></span>
+          </label>
+          <label>Entrada m&aacute;xima (R$)
+            <select><option>100.000</option><option>150.000</option><option>250.000</option></select>
+          </label>
+          <label>Parcela m&aacute;xima (R$)
+            <select><option>2.500</option><option>3.500</option><option>5.000</option></select>
+          </label>
+          <label>Administradora
+            <select><option>Todas</option><option>Mycon</option><option>Porto Seguro</option><option>Ademicon</option></select>
+          </label>
+          <button class="search" type="button">⌕ Pesquisar</button>
+        </div>
+        <div class="quick">
+          <strong>Filtros r&aacute;pidos:</strong>
+          <button class="chip" type="button">At&eacute; R$ 200 mil</button>
+          <button class="chip" type="button">R$ 200 mil a R$ 500 mil</button>
+          <button class="chip" type="button">Acima de R$ 500 mil</button>
+          <button class="chip" type="button">Menor entrada</button>
+          <button class="chip" type="button">Menor parcela</button>
+          <button class="chip" type="button">Melhores oportunidades ★</button>
+          <a class="clear" href="imoveis.html">↻ Limpar filtros</a>
+        </div>
+      </section>
+
+      <section class="table-card" aria-label="Cartas de imoveis disponiveis">
+        <div class="table-head">
+          <div class="table-title">
+            <i>⌂</i>
+            <div><h2>Cartas de im&oacute;vel</h2><span>84 cartas encontradas</span></div>
+          </div>
+          <label class="sort">Ordenar por:
+            <select><option>Melhor oportunidade</option><option>Menor entrada</option><option>Menor parcela</option><option>Maior cr&eacute;dito</option></select>
+          </label>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo</th><th>Carta</th><th>Administradora</th><th>Cr&eacute;dito (R$)</th><th>Entrada (R$)</th><th>Parcela (R$)</th><th>Parcelas<br>restantes</th><th>Saldo devedor (R$)</th><th>Pr&oacute;x. venc.</th><th>Situa&ccedil;&atilde;o</th><th>Nota</th><th>A&ccedil;&atilde;o</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="type-icon">⌂</td><td><div class="asset">Carta im&oacute;vel R$ 150 mil <span class="tag green">Menor entrada</span></div></td><td><span class="admin">Porto</span></td><td>150.000,00</td><td>35.000,00</td><td>R$ 1.650,00</td><td>120x</td><td>115.000,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,4 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">⌂</td><td><div class="asset">Carta im&oacute;vel R$ 250 mil <span class="tag gold">Premium</span></div></td><td><span class="admin">Ademicon</span></td><td>250.000,00</td><td>55.000,00</td><td>R$ 2.260,00</td><td>150x</td><td>195.000,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,2 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">⌂</td><td><div class="asset">Carta im&oacute;vel R$ 400 mil <span class="tag blue">Rec&eacute;m cadastrada</span></div></td><td><span class="admin">mycon</span></td><td>400.000,00</td><td>75.000,00</td><td>R$ 2.890,00</td><td>180x</td><td>325.000,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,1 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">⌂</td><td><div class="asset">Carta im&oacute;vel R$ 500 mil <span class="tag gold">Melhor oportunidade</span></div></td><td><span class="admin">Porto</span></td><td>500.000,00</td><td>95.000,00</td><td>R$ 3.560,00</td><td>180x</td><td>405.000,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,0 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">⌂</td><td><div class="asset">Carta im&oacute;vel R$ 750 mil <span class="tag red">Alta procura</span></div></td><td><span class="admin">mycon</span></td><td>750.000,00</td><td>130.000,00</td><td>R$ 4.350,00</td><td>200x</td><td>620.000,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">8,9 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><i>♕</i><div><strong>Melhor oportunidade</strong><span>As cartas com melhor custo-benef&iacute;cio.</span></div></div>
+          <div class="legend-item"><i>◇</i><div><strong>Premium</strong><span>Cartas com excelente valor e condi&ccedil;&otilde;es.</span></div></div>
+          <div class="legend-item"><i>△</i><div><strong>Alta procura</strong><span>Muitas pessoas interessadas nesta carta.</span></div></div>
+          <div class="legend-item"><i>◷</i><div><strong>Rec&eacute;m cadastrada</strong><span>Cartas novas dispon&iacute;veis no mercado.</span></div></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" id="quem-somos">
+    <div class="footer-inner">
+      <div>
+        <div class="brand">
+          <span class="crest" aria-hidden="true"></span>
+          <span class="brand-title"><strong>CAVALARIA</strong><span>CONTEMPLADOS</span></span>
+        </div>
+        <p>Cartas contempladas para autom&oacute;veis, tratores, im&oacute;veis e caminh&otilde;es.</p>
+      </div>
+      <div><h3>Fale conosco</h3><ul><li><a href="https://wa.me/5512997601067">W 12 99760-1067</a></li><li>(11) 98051-3020</li></ul></div>
+      <div><h3>Siga-nos</h3><ul><li>/cavalaria.contemplados</li><li>/cavalariacontemplados</li></ul></div>
+      <div><h3>Seguran&ccedil;a</h3><p>Site 100% seguro. Seus dados protegidos com criptografia SSL.</p></div>
+    </div>
+  </footer>
+</body>
+</html>
