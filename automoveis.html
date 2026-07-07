@@ -148,7 +148,7 @@
     .available { color:var(--green); background:#eaf8ee; border:1px solid #cfead7; font-size:11px; font-weight:950; border-radius:5px; padding:5px 8px; }
     .note { font-weight:950; white-space:nowrap; }
     .actions { display:flex; gap:8px; align-items:center; }
-    .whats { width:28px; height:28px; border:0; border-radius:6px; background:#18b653; color:#fff; font-weight:950; }
+    .whats { width:28px; height:28px; border:0; border-radius:6px; background:#18b653; color:#fff; font-weight:950; display:grid; place-items:center; }
     .details {
       min-height:28px; padding:0 10px; border:1px solid #e1a0a6; border-radius:5px; background:#fff;
       color:var(--red); font-weight:950; font-size:11px; text-transform:uppercase;
@@ -286,11 +286,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td class="type-icon">▱</td><td><div class="vehicle">VW Gol 1.0 <span class="tag gold">Melhor oportunidade</span></div></td><td><span class="admin">mycon</span></td><td>25.000,00</td><td>7.990,00</td><td>R$ 418,00</td><td>69x</td><td>18.210,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,8 ★</td><td><div class="actions"><button class="whats">W</button><button class="details">Ver detalhes</button></div></td></tr>
-              <tr><td class="type-icon">▱</td><td><div class="vehicle">Chevrolet Onix <span class="tag gold">Premium</span></div></td><td><span class="admin">mycon</span></td><td>35.250,00</td><td>12.490,00</td><td>R$ 750,18</td><td>50x</td><td>23.510,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,2 ★</td><td><div class="actions"><button class="whats">W</button><button class="details">Ver detalhes</button></div></td></tr>
-              <tr><td class="type-icon">▱</td><td><div class="vehicle">Hyundai HB20 <span class="tag blue">Rec&eacute;m cadastrada</span></div></td><td><span class="admin">Porto</span></td><td>43.625,00</td><td>14.900,00</td><td>R$ 715,00</td><td>67x</td><td>28.725,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,1 ★</td><td><div class="actions"><button class="whats">W</button><button class="details">Ver detalhes</button></div></td></tr>
-              <tr><td class="type-icon">▥</td><td><div class="vehicle">Massey Ferguson 4275 <span class="tag red">Alta procura</span></div></td><td><span class="admin">Ademicon</span></td><td>66.900,00</td><td>22.900,00</td><td>R$ 1.014,00</td><td>65x</td><td>44.000,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,0 ★</td><td><div class="actions"><button class="whats">W</button><button class="details">Ver detalhes</button></div></td></tr>
-              <tr><td class="type-icon">▱</td><td><div class="vehicle">Fiat Mobi <span class="tag green">Menor entrada</span></div></td><td><span class="admin">mycon</span></td><td>75.000,00</td><td>25.900,00</td><td>R$ 1.285,00</td><td>66x</td><td>49.100,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">8,8 ★</td><td><div class="actions"><button class="whats">W</button><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">▱</td><td><div class="vehicle">VW Gol 1.0 <span class="tag gold">Melhor oportunidade</span></div></td><td><span class="admin">mycon</span></td><td>25.000,00</td><td>7.990,00</td><td>R$ 418,00</td><td>69x</td><td>18.210,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,8 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">▱</td><td><div class="vehicle">Chevrolet Onix <span class="tag gold">Premium</span></div></td><td><span class="admin">mycon</span></td><td>35.250,00</td><td>12.490,00</td><td>R$ 750,18</td><td>50x</td><td>23.510,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,2 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">▱</td><td><div class="vehicle">Hyundai HB20 <span class="tag blue">Rec&eacute;m cadastrada</span></div></td><td><span class="admin">Porto</span></td><td>43.625,00</td><td>14.900,00</td><td>R$ 715,00</td><td>67x</td><td>28.725,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,1 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">▥</td><td><div class="vehicle">Massey Ferguson 4275 <span class="tag red">Alta procura</span></div></td><td><span class="admin">Ademicon</span></td><td>66.900,00</td><td>22.900,00</td><td>R$ 1.014,00</td><td>65x</td><td>44.000,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">9,0 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
+              <tr><td class="type-icon">▱</td><td><div class="vehicle">Fiat Mobi <span class="tag green">Menor entrada</span></div></td><td><span class="admin">mycon</span></td><td>75.000,00</td><td>25.900,00</td><td>R$ 1.285,00</td><td>66x</td><td>49.100,00</td><td>10/07/2026</td><td><span class="available">Dispon&iacute;vel</span></td><td class="note">8,8 ★</td><td><div class="actions"><a class="whats" href="https://wa.me/5512997601067">W</a><button class="details">Ver detalhes</button></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -313,7 +313,7 @@
         </div>
         <p>Cartas contempladas para autom&oacute;veis, tratores, im&oacute;veis e caminh&otilde;es.</p>
       </div>
-      <div><h3>Fale conosco</h3><ul><li>W 12 99760-1067</li><li>(11) 98051-3020</li></ul></div>
+      <div><h3>Fale conosco</h3><ul><li><a href="https://wa.me/5512997601067">W 12 99760-1067</a></li><li>(11) 98051-3020</li></ul></div>
       <div><h3>Siga-nos</h3><ul><li>/cavalaria.contemplados</li><li>/cavalariacontemplados</li></ul></div>
       <div><h3>Seguran&ccedil;a</h3><p>Site 100% seguro. Seus dados protegidos com criptografia SSL.</p></div>
     </div>

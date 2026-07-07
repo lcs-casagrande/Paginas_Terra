@@ -98,7 +98,7 @@
     }
 
     if (endpoint.endsWith("/api/cartas")) {
-      let rows = [...(await loadDataset("cartas"))];
+      let rows = [...(await loadDataset("cartas"))].filter(row => Number(row.publicado ?? 1) === 1);
       const exactFilters = [
         ["categoria", "categoria"],
         ["tipo", "tipo_veiculo"],
