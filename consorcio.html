@@ -162,6 +162,11 @@
       background:var(--red); color:#fff; font-weight:900; text-transform:uppercase;
     }
     .sell .cta { background:#06111e; }
+    .form-message {
+      margin:10px 0 0; min-height:20px; color:#ffe7bd; font-size:12px; font-weight:800; line-height:1.35;
+    }
+    .form-message.ok { color:#b6ffce; }
+    .form-message.err { color:#ffd1d1; }
 
     .section-head { display:flex; align-items:center; justify-content:space-between; gap:18px; margin:18px 0 10px; }
     .section-head h2 { margin:0; font-size:20px; text-transform:uppercase; display:flex; align-items:center; gap:10px; }
@@ -319,26 +324,27 @@
           <button class="cta" type="button">⌕ Buscar cartas</button>
         </form>
 
-        <form class="box sell">
+        <form class="box sell" id="sellForm">
           <h2><i>▦</i> Venda sua carta</h2>
           <div class="grid-fields">
             <label class="field full">Valor do cr&eacute;dito
-              <span class="money"><span>R$</span><input placeholder="Ex: 100.000,00" /></span>
+              <span class="money"><span>R$</span><input id="sellCredit" name="valor_credito" placeholder="Ex: 100.000,00" required /></span>
             </label>
             <label class="field full">Quantas parcelas pagas
-              <input placeholder="Ex: 20 parcelas" />
+              <input id="sellPaid" name="parcelas_pagas" placeholder="Ex: 20 parcelas" required />
             </label>
             <label class="field full">Valor da parcela
-              <span class="money"><span>R$</span><input placeholder="Ex: 1.500,00" /></span>
+              <span class="money"><span>R$</span><input id="sellInstallment" name="valor_parcela" placeholder="Ex: 1.500,00" required /></span>
             </label>
             <label class="field full">Administradora
-              <input placeholder="Digite o nome da administradora" />
+              <input id="sellAdmin" name="administradora" placeholder="Digite o nome da administradora" required />
             </label>
             <label class="field full">Nota
-              <textarea maxlength="300" placeholder="Escreva uma observa&ccedil;&atilde;o breve sobre sua carta"></textarea>
+              <textarea id="sellNote" name="nota" maxlength="300" placeholder="Escreva uma observa&ccedil;&atilde;o breve sobre sua carta"></textarea>
             </label>
           </div>
-          <button class="cta" type="button">✈ Enviar carta</button>
+          <button class="cta" id="sellSubmit" type="submit">Enviar carta</button>
+          <p class="form-message" id="sellMessage" aria-live="polite"></p>
         </form>
       </section>
 
@@ -405,5 +411,81 @@
       <div><h3>Seguran&ccedil;a</h3><p>Site 100% seguro. Seus dados protegidos com criptografia SSL.</p></div>
     </div>
   </footer>
+  <script src="static/api-client.js"></script>
+  <script>
+    const WHATSAPP_NUMBER = "5512997601067";
+    const SALES_EMAIL = "";
+    const sellForm = document.getElementById("sellForm");
+    const sellMessage = document.getElementById("sellMessage");
+    const sellSubmit = document.getElementById("sellSubmit");
+
+    function salePayload() {
+      return {
+        valor_credito: document.getElementById("sellCredit").value.trim(),
+        parcelas_pagas: document.getElementById("sellPaid").value.trim(),
+        valor_parcela: document.getElementById("sellInstallment").value.trim(),
+        administradora: document.getElementById("sellAdmin").value.trim(),
+        nota: document.getElementById("sellNote").value.trim()
+      };
+    }
+
+    function saleText(data) {
+      const lines = [
+        "Olá, quero vender minha carta contemplada.",
+        `Valor do crédito: R$ ${data.valor_credito}`,
+        `Parcelas pagas: ${data.parcelas_pagas}`,
+        `Valor da parcela: R$ ${data.valor_parcela}`,
+        `Administradora: ${data.administradora}`
+      ];
+      if (data.nota) lines.push(`Nota: ${data.nota}`);
+      return lines.join("\n");
+    }
+
+    function fallbackLinks(data) {
+      const text = saleText(data);
+      return {
+        whatsapp_url: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,
+        mailto_url: SALES_EMAIL ? `mailto:${SALES_EMAIL}?subject=${encodeURIComponent("Nova venda de carta")}&body=${encodeURIComponent(text)}` : ""
+      };
+    }
+
+    function showSellMessage(text, ok = true) {
+      sellMessage.textContent = text;
+      sellMessage.className = `form-message ${ok ? "ok" : "err"}`;
+    }
+
+    sellForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const data = salePayload();
+      sellSubmit.disabled = true;
+      showSellMessage("Enviando sua carta...");
+      let links = fallbackLinks(data);
+      let saved = false;
+      try {
+        const response = await fetch("/api/venda-carta", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(data)
+        });
+        if (response.ok) {
+          const payload = await response.json();
+          links = {
+            whatsapp_url: payload.whatsapp_url || links.whatsapp_url,
+            mailto_url: payload.mailto_url || links.mailto_url
+          };
+          saved = true;
+        }
+      } catch (error) {
+        saved = false;
+      }
+      window.open(links.whatsapp_url, "_blank", "noopener");
+      if (links.mailto_url) {
+        setTimeout(() => { window.location.href = links.mailto_url; }, 250);
+      }
+      showSellMessage(saved ? "Solicitação salva. Abrimos o WhatsApp com a mensagem pronta." : "Abrimos o WhatsApp com a mensagem pronta.");
+      sellForm.reset();
+      sellSubmit.disabled = false;
+    });
+  </script>
 </body>
 </html>
