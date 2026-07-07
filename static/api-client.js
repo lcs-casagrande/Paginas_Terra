@@ -97,6 +97,48 @@
       return jsonResponse({total: rows.length, dados: rows});
     }
 
+    if (endpoint.endsWith("/api/cartas")) {
+      let rows = [...(await loadDataset("cartas"))];
+      const exactFilters = [
+        ["categoria", "categoria"],
+        ["tipo", "tipo_veiculo"],
+        ["status", "status"],
+        ["administradora", "administradora"]
+      ];
+      exactFilters.forEach(([param, field]) => {
+        const value = first(params, param);
+        if (value) rows = rows.filter(row => String(row[field] || "") === value);
+      });
+      const numberFilters = [
+        ["credito_min", "credito", ">="],
+        ["credito_max", "credito", "<="],
+        ["entrada_max", "entrada", "<="],
+        ["parcela_max", "parcela", "<="],
+        ["custo_max", "custo", "<="]
+      ];
+      numberFilters.forEach(([param, field, operator]) => {
+        const value = numberFilter(params, param);
+        if (value != null && Number.isFinite(value)) {
+          rows = rows.filter(row => operator === ">=" ? (Number(row[field]) || 0) >= value : (Number(row[field]) || 0) <= value);
+        }
+      });
+      const q = first(params, "q").toUpperCase();
+      if (q) rows = rows.filter(row => `${row.veiculo} ${row.marca} ${row.administradora}`.toUpperCase().includes(q));
+      const sortMap = {
+        credito: ["credito", "desc"],
+        entrada: ["entrada", "asc"],
+        parcela: ["parcela", "asc"],
+        custo: ["custo", "asc"],
+        nota: ["nota", "desc"]
+      };
+      const [field, direction] = sortMap[first(params, "sort") || "nota"] || ["nota", "desc"];
+      rows.sort((left, right) => {
+        const diff = (Number(left[field]) || 0) - (Number(right[field]) || 0);
+        return (direction === "asc" ? diff : -diff) || Number(left.id) - Number(right.id);
+      });
+      return jsonResponse({total: rows.length, dados: rows});
+    }
+
     return null;
   }
 
